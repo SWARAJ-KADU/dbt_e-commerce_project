@@ -1,0 +1,1 @@
+select *, row_number() over(partition by customer_id order by ingested_at desc) as rn from {{ ref('dim_customers') }}

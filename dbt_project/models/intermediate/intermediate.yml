@@ -1,0 +1,65 @@
+version: 2
+
+models:
+
+  - name: int_orders_lifecycle
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests: [not_null]
+
+  - name: int_order_items_metrics
+    columns:
+      - name: order_id
+        tests: [not_null]
+      - name: order_item_id
+        tests: [not_null]
+
+  - name: int_order_basket_summary
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+
+  - name: int_order_payments_summary
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+
+  - name: int_order_reviews_enriched
+    columns:
+      - name: review_id
+        tests: [not_null]
+      - name: order_id
+        tests: [not_null]
+  
+  - name: int_order_reviews_summary
+    columns:
+      - name: order_id
+        tests: [not_null, unique]
+
+  - name: int_customers
+    columns:
+      - name: customer_unique_id
+        tests: [not_null, unique]
+      - name: customer_id
+        tests: [not_null]
+
+  - name: int_sellers
+    columns:
+      - name: unique_seller_id
+        tests: [not_null, unique]
+      - name: seller_id
+        tests: [not_null]
+
+  - name: int_products
+    columns:
+      - name: unique_product_id
+        tests: [not_null, unique]
+      - name: product_id
+        tests: [not_null]
+
+  - name: int_geo_reference
+    columns:
+      - name: zip_code_prefix
+        tests: [not_null]
