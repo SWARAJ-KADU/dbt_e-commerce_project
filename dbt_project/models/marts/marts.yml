@@ -13,7 +13,7 @@ models:
           - not_null
 
 
-  - name: dim_date
+  - name: dim_dates
     columns:
       - name: date_sk
         tests:
