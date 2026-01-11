@@ -49,7 +49,8 @@ select
     o.is_late_delivery,
     o.order_date,
     o.order_year,
-    o.order_month
+    o.order_month,
+    o.ingested_at
 
 from (
     select * from {{ ref('int_orders_lifecycle') }} 
