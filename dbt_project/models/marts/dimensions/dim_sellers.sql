@@ -26,5 +26,5 @@ select
 from {{ ref('int_sellers') }}
 
 {% if is_incremental() %}
-where dbt_updated_at > (select max_updated_at from updated_max_date)
+where updated_at > (select max_updated_at from updated_max_date)
 {% endif %}
