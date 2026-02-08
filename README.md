@@ -175,12 +175,3 @@ dbt test
 This project is for **educational and portfolio purposes**.
 
 ---
-
-If you want, I can:
-
-* Customize this README to **match your exact models**
-* Add **ER diagrams**
-* Make it more **resume-oriented**
-* Optimize it for **recruiters / LinkedIn visibility**
-
-Just tell me 👍
