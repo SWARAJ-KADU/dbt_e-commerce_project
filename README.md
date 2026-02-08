@@ -1,107 +1,148 @@
-Below is a **clean, attractive, and professional README** tailored for a **dbt-based e-commerce analytics project using Snowflake**.
-It’s written to be **portfolio-ready**, recruiter-friendly, and easy for other engineers to run.
+# 🛒 dbt E-Commerce Analytics Project (Snowflake)
 
-You can copy-paste this directly into your `README.md`.
+An **end-to-end analytics engineering project** built using **dbt** and **Snowflake**, transforming raw e-commerce data into **production-ready fact and dimension tables** following industry best practices.
 
----
-
-# 🛒 dbt E-Commerce Analytics Project
-
-A modern **analytics engineering project** built with **dbt** and **Snowflake**, transforming raw e-commerce data into **analytics-ready models** for reporting and insights.
-
-This project demonstrates best practices in:
-
-* Data modeling with dbt
-* SQL transformations
-* Modular analytics layers (staging → intermediate → marts)
-* Cloud data warehousing with Snowflake
+This project uses the **Olist Brazilian E-Commerce Dataset** and demonstrates how to design a **modern analytics warehouse** with strong data quality guarantees.
 
 ---
 
-## 📌 Project Overview
+## 📌 Project Objective
 
-The goal of this project is to convert raw e-commerce data into structured, trustworthy datasets that can be used for:
+The goal of this project is to:
 
-* Business intelligence dashboards
-* Sales & customer analytics
-* Product and order performance tracking
-
-Using **dbt**, we apply transformations, tests, and documentation to ensure **data quality and reliability**.
+* Ingest raw e-commerce data into Snowflake
+* Transform it using **dbt**
+* Build a **star schema** with fact and dimension tables
+* Enforce **data quality tests**
+* Enable reliable **business analytics & BI reporting**
 
 ---
 
 ## 🧱 Tech Stack
 
-| Tool          | Purpose                        |
-| ------------- | ------------------------------ |
-| **dbt**       | Data transformation & modeling |
-| **Snowflake** | Cloud data warehouse           |
-| **SQL**       | Data transformation logic      |
-| **GitHub**    | Version control                |
-| **Python**    | Dependency management          |
+| Tool             | Purpose                       |
+| ---------------- | ----------------------------- |
+| **dbt**          | Data transformation & testing |
+| **Snowflake**    | Cloud data warehouse          |
+| **SQL**          | Transformation logic          |
+| **Python**       | Dependency management         |
+| **Git & GitHub** | Version control               |
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-dbt_e-commerce_project/
+dbt_project/
 │
-├── dbt_project/               # Core dbt project
-│   ├── models/                # dbt models (staging, marts, etc.)
-│   ├── tests/                 # Data tests
-│   ├── macros/                # Reusable dbt macros
-│   ├── dbt_project.yml        # dbt project configuration
+├── models/
+│   ├── staging/               # Cleaned raw source data
+│   ├── intermediate/          # Business logic & joins
+│   └── marts/
+│       ├── dimensions/        # Dimension tables
+│       └── facts/             # Fact tables
 │
-├── sql_snowflake_scripts/     # Raw / helper SQL scripts for Snowflake
+├── snapshots/                 # Slowly changing dimensions
 │
-├── logs/                      # dbt execution logs
+├── tests/                     # Custom data quality tests
 │
-├── requirements.txt           # Python dependencies
+├── olist_dataset/             # Raw CSV source data
 │
-└── README.md                  # Project documentation
+├── dbt_project.yml            # dbt project configuration
+│
+├── sql_snowflake_scripts/     # Snowflake setup & automation
+│
+└── requirements.txt
 ```
 
 ---
 
 ## 🔄 Data Modeling Approach
 
-This project follows a **layered dbt modeling strategy**:
+This project follows a **layered dbt architecture**.
 
 ### 1️⃣ Staging Layer
 
-* Cleans and standardizes raw source data
-* Renames columns
-* Applies basic transformations
+* Standardizes raw Olist datasets
+* Cleans column names and data types
+* Applies light transformations
 
-### 2️⃣ Intermediate Layer (if applicable)
+### 2️⃣ Intermediate Layer
 
-* Applies business logic
-* Joins multiple sources
-* Prepares data for analytics
+* Applies business rules
+* Joins multiple staging models
+* Validates entity relationships
 
-### 3️⃣ Mart Layer
+### 3️⃣ Mart Layer (Star Schema)
 
-* Final analytics-ready tables
-* Optimized for reporting and dashboards
-* Examples:
+#### 📊 Fact Tables
 
-  * Sales performance
-  * Customer metrics
-  * Order summaries
+* `fct_orders`
+* `fct_order_items`
+* `fct_payments`
+* `fct_reviews`
+
+#### 📐 Dimension Tables
+
+* `dim_customers`
+* `dim_products`
+* `dim_sellers`
+* `dim_geo`
+* `dim_dates`
+
+Each fact table uses **surrogate keys** and supports analytical queries at scale.
+
+---
+
+## ⏳ Snapshots (SCD Type 2)
+
+Snapshots track historical changes for:
+
+* **Products**
+* **Sellers**
+
+This enables:
+
+* Point-in-time analysis
+* Change tracking over time
 
 ---
 
 ## ✅ Data Quality & Testing
 
-The project includes dbt tests to ensure:
+The project includes **extensive dbt tests**, including:
 
-* **Not null** constraints
-* **Uniqueness** of primary keys
-* **Referential integrity**
-* Consistent data types
+### Built-in Tests
 
-This helps maintain **trustworthy analytics outputs**.
+* `not_null`
+* `unique`
+* `relationships`
+
+### Custom Tests
+
+* Negative order amounts
+* Invalid timestamps
+* Basket value mismatches
+* Missing geo coordinates
+* Invalid product dimensions
+* Orders delivered before purchase
+* Zero-value payments
+
+These ensure **high trust in analytics outputs**.
+
+---
+
+## ❄️ Snowflake Integration
+
+The `sql_snowflake_scripts/` folder contains:
+
+* Database & table creation scripts
+* COPY commands for CSV ingestion
+* User & role permissions
+* Stored procedures
+* Task automation
+
+This makes the project **production-ready** in Snowflake.
 
 ---
 
@@ -112,20 +153,15 @@ This helps maintain **trustworthy analytics outputs**.
 * Python 3.8+
 * dbt installed
 * Snowflake account
-* Snowflake credentials configured
+* Snowflake profile configured
 
-### Setup
+### Installation
 
 ```bash
-# Clone the repository
-git clone https://github.com/SWARAJ-KADU/dbt_e-commerce_project.git
-cd dbt_e-commerce_project
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-### Run dbt Models
+### Run Models
 
 ```bash
 dbt run
@@ -137,41 +173,44 @@ dbt run
 dbt test
 ```
 
+### Run Snapshots
+
+```bash
+dbt snapshot
+```
+
 ---
 
-## 📊 Use Cases
+## 📊 Analytics Use Cases
 
-* Analyze **sales trends**
-* Track **customer behavior**
-* Measure **order performance**
-* Build BI dashboards using tools like:
-
-  * Power BI
-  * Tableau
-  * Looker
+* Sales & revenue analysis
+* Customer behavior insights
+* Product performance tracking
+* Seller performance monitoring
+* BI dashboards (Power BI, Tableau, Looker)
 
 ---
 
 ## 🎯 Key Highlights
 
-✔ Industry-standard dbt project structure
-✔ Cloud-ready (Snowflake)
-✔ Analytics engineering best practices
-✔ Scalable and modular SQL models
-✔ Ideal for portfolio and real-world use
+✔ Real-world e-commerce dataset
+✔ Star schema design
+✔ Advanced dbt testing
+✔ SCD snapshots
+✔ Snowflake-ready deployment
+✔ Portfolio-grade analytics project
 
 ---
 
 ## 👤 Author
 
 **Swaraj Kadu**
-📌 Aspiring Data / Analytics Engineer
-📎 GitHub: [SWARAJ-KADU](https://github.com/SWARAJ-KADU)
+📌 Analytics / Data Engineer
+🔗 GitHub: [https://github.com/SWARAJ-KADU](https://github.com/SWARAJ-KADU)
 
 ---
 
 ## 📜 License
 
-This project is for **educational and portfolio purposes**.
+This project is intended for **learning, demonstration, and portfolio purposes**.
 
----
