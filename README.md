@@ -14,7 +14,7 @@
 
 ---
 
-![Project Architecture](/home/swaraj/Documents/dbt_project/star_schema_diagram.png)
+![Project Architecture](star_schema_diagram.png)
 
 ## 📖 About
 
