@@ -14,6 +14,8 @@
 
 ---
 
+![Project Architecture](/home/swaraj/Documents/dbt_project/star_schema_diagram.png)
+
 ## 📖 About
 
 This dbt project implements a complete **ELT pipeline** for the [Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce), transforming raw transactional data into a **dimensional model** optimized for analytics and business intelligence.
