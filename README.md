@@ -14,7 +14,7 @@
 
 ---
 
-![Project Architecture](star_schema_diagram.png)
+![schema diagram](star_schema_diagram.png)
 
 ## 📖 About
 
@@ -43,7 +43,9 @@ The Olist dataset contains **100,000+ orders** from 2016-2018 across multiple Br
 
 ## 🏛️ Project Architecture
 
+![architecture](architecture.png)
 ```
+
 ┌─────────────────────────────────────────────────────────────────┐
 │                         SOURCE LAYER                             │
 │                      (Olist Raw Tables)                          │
